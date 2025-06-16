@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
+import urllib 
 import requests
 import re
 
@@ -10,12 +11,14 @@ url_workona_0_4 = "https://www.workana.com/jobs?category=it-programming&has_few_
 url_workana_4_x = "https://www.workana.com/pt/jobs?category=it-programming&has_few_bids=2&language=pt"
 class freelas:
     def regular_expression(self):
+        self.headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
         print('')
     
     def freelas_99(self,url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text,'html.parser')
-        print(soup)
+        projetos = soup.find_all('li', class_='result-item')
+        print(projetos)
 
 
 teste = freelas() 
