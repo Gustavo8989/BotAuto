@@ -17,7 +17,7 @@ class freelas:
     def freelas_99(self,url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text,'html.parser')
-        projetos = soup.find_all('li', class_='result-item')
+        projetos = soup.find_all('li', class_='with-flag result-item first-with-flag')
         print(projetos)
 
 
