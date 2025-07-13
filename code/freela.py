@@ -17,13 +17,13 @@ class freelas:
         response = requests.get(url,headers=headers)
         soup = BeautifulSoup(response.content,'html.parser')
         titulo = soup.find_all('h1')
-        for titulos in titulo:
-            titulo_projetos = titulos.find('h1')
-            link_project = titulos.find('a') 
-            #clear_link = re.
-            project_title = titulos.text 
-            print(project_title) 
-
+        for pags in url:
+            for titulos in titulo:
+                titulo_projetos = titulos.find('h1')
+                link_project = titulos.find('a')
+                project_title = titulos.text
+                print(project_title)
+                print(link_project)
 
     def workana(self,url):
         response_workana = requests.get(url,headers=headers)
@@ -35,7 +35,6 @@ class freelas:
 
 for c in range(6):
     url_99 = f"https://www.99freelas.com.br/projects?order=numero-de-interessados-menor&categoria=web-mobile-e-software={c}"
-    print(url_99)
     url_workona_0_4 = f"https://www.workana.com/jobs?category=it-programming&language=pt&page={c}"
     teste = freelas() 
     teste.freelas_99(url_99)
