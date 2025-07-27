@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from time import sleep
-import selenium 
+import telebot
 import requests
 import re
 
@@ -8,20 +8,20 @@ import re
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
 cronometro = 10
 class freelas:
-    def __init__(self):
-        pass 
+    with open("auth.txt",'r') as arquivo:
+        key = arquivo.read()
+    TOKEN = key
+    global bot 
+    bot = telebot.TeleBot(TOKEN)
+
     def freelas_99(self,url):
         response = requests.get(url,headers=headers)
         soup = BeautifulSoup(response.content,'html.parser')
         titulo = soup.find_all('h1')
         for titulos in titulo:
             project_title = titulos.find('h1')
-            link_project = titulos.find('a')
-            project_title = titulos.text
-            print(project_title)
-            print(link_project)
-            print('-'*30)
-
+            self.link_project = titulos.find('a')
+            self.project_title = titulos.text
     def workana(self,url):
         sleep(5) # Quando for para produção colocar 1 minuto 
         response_workana = requests.get(url,headers=headers)
@@ -29,11 +29,16 @@ class freelas:
         project = soup_workana.find_all('h1')
         for projects in project:
             projects_title_w = projects.find('h1')
-            link = projects.find('a')
-            projects_title_w = projects.text
-            print(projects_title_w)
-            print(link)
-            print('-'*30)
+            self.link = projects.find('a')
+            self.projects_title_w = projects.text
+            
+    @bot.massage_handler(commands=['start'])
+    def send_projects(message):
+        bot.reply_to(message,'Teste')
+    @bot.message_handler(func=lambda msg:True)
+    def echoa_menssage(message):
+        bot.reply_to(message,message.text)
+
 
 
 for c in range(4):

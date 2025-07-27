@@ -1,13 +1,9 @@
 from bs4 import BeautifulSoup
-import pandas as pd
-import numpy as np
-import selenium
-import urllib
-import requests
-import re
+import requests 
+import telebot 
 
 # URLs
-headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
+'''headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
 
 for c in range(4):
     url_99 = f"https://www.99freelas.com.br/projects?order=numero-de-interessados-menor&page={c}"
@@ -26,4 +22,22 @@ for c in range(4):
     for c in titulo_workana:
         title_projects = c.find('h1')
         link_project = c.find('h1')
-        print(c.text)
+        print(c.text)'''
+
+with open("auth.txt",'r') as arquivo:
+    key = arquivo.read()
+
+TOKEN = key 
+bot = telebot.TeleBot(TOKEN)
+
+@bot.message_handler(commands=['start'])
+def send_menssage(message):
+    bot.reply_to(message,"Teste1")
+
+@bot.message_handler(func=lambda msg:True)
+def echoa_all(message):
+    bot.reply_to(message,message.text)
+
+
+print("Inicializando um bot")
+bot.infinity_polling()
