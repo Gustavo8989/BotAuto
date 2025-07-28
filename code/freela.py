@@ -36,6 +36,7 @@ def freela():
             project_title = titulos.text
             title_projects_99.append(project_title)
             link_project_99.append(link_project)
+            #print(title_projects_99)
 
     # Webscraaping na Workana
     for url in urls_workona_0_4:
@@ -50,14 +51,22 @@ def freela():
             link_project_workana.append(link_w)
     
     @bot.message_handler(commands=['start'])
-    def send_projects(message):
-        bot.reply_to(message,'Você quer ver da 99 Freelas ou da Workana')
+    def send_hello(message):
+        bot.reply_to(message,"[1] 99 freelas ou [2] Workana")
 
-    @bot.message_handler(commands=['99 Freelas'])
-    def echoa_menssage(message):
+    @bot.message_handler(commands=['1'])
+    def send_projects_99(message):
         for projects in title_projects_99:
             bot.reply_to(message,projects)
+    
+    @bot.message_handler(commands=['2'])
+    def send_projects_workana(message):
+        for projects in title_projects_workana:
+            bot.reply_to(message,projects)
 
+    @bot.message_handler(commands=['clear'])
+    def delet_massagem(message):
+        pass 
     
     bot.infinity_polling()
 
