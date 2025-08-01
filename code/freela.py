@@ -11,8 +11,8 @@ headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 cronometro = 10
 def freela():
     # Laço de repetição para acessar as paginas do site 
-    urls_99 = [f"https://www.99freelas.com.br/projects?order=numero-de-interessados-menor&page={c}" for c in range(4)]
-    urls_workona_0_4 = [f"https://www.workana.com/jobs?category=it-programming&language=pt&page={c}" for c in range(4)] 
+    urls_99 = [f"https://www.99freelas.com.br/projects?order=numero-de-interessados-menor&page={c}" for c in range(2)]
+    urls_workona_0_4 = [f"https://www.workana.com/jobs?category=it-programming&language=pt&page={c}" for c in range(2)] 
     title_projects_99 = []
     title_projects_workana = []
     link_project_99 = []
