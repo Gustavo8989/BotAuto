@@ -36,19 +36,23 @@ def freela():
             project_title = titulos.text
             title_projects_99.append(project_title)
             link_project_99.append(link_project)
+            skill = 0 
+            bids = 0 
             #print(title_projects_99)
 
     # Webscraaping na Workana
     for url in urls_workona_0_4:
         response_workana = requests.get(url,headers=headers)
         soup_workana = BeautifulSoup(response_workana.content,'html.parser')
-        project = soup_workana.find_all('h1')
+        project = soup_workana.find_all('div',class_="project-item js-project") 
         for projects in project:
             projects_title_w = projects.find('h1')
             link_w = projects.find('a')
             projects_title_w = projects.text
             title_projects_workana.append(projects_title_w)
             link_project_workana.append(link_w)
+            skill = soup.find_all('div',class_="skills")
+            bids = soup.find_all('span',class_="bids")
     
     @bot.message_handler(commands=['start'])
     def send_hello(message):
