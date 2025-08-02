@@ -73,6 +73,6 @@ def freela():
         pass 
     
     bot.infinity_polling()
-
+    
 teste = freela()
-teste 
+teste
