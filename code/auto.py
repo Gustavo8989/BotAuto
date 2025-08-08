@@ -2,6 +2,7 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup 
 import telebot  
+import time
 import requests 
 import re 
 
@@ -14,10 +15,11 @@ amazon = "https://www.amazon.com.br/deals?ref_=nav_cs_gb"
 BanWords = ['span','tag','style','true']
 # Expressão Regular
 def RegularExpression(x:str):
-    NameProdocts = re.findall(r"\w[a-zA-Z]+",x)
+    NameProdocts = re.findall(r">([^<]+)<",x)
     LinkProdocts = re.findall(r'href="([^"]+)"',x)
     PriceProducts = re.findall(r"\d+",x)
     NameStore = re.findall(r">([^<]+)<",x)
+    OriginalPrice = re.findall(r"\d+",x)
 
 
 def MercadoLivre():
@@ -29,6 +31,11 @@ def MercadoLivre():
     Price = soup.find_all("div",class_="poly-price__current")
     OriginalPrice = soup.find_all("s",class_="andes-money-amount andes-money-amount--previous andes-money-amount--cents-comma")
     itens_grupy = soup.find_all("div",class_="items-with-smart-groups")
+    NameProdocts = re.findall(r">([^<]+)<",NameProdoct)
+    LinkProdocts = re.findall(r'href="([^"]+)"',Link)
+    for name in NameProdocts:
+        print(name)
+        time.sleep(2)
 
 
     
