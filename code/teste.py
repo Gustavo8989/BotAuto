@@ -1,10 +1,15 @@
 from bs4 import BeautifulSoup
 import requests 
 import telebot 
+import time 
+import re 
+
+
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
+
 
 # URLs
-'''headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
-
+'''
 for c in range(4):
     url_99 = f"https://www.99freelas.com.br/projects?order=numero-de-interessados-menor&page={c}"
     url_workona_0_4 = f"https://www.workana.com/jobs?category=it-programming&language=pt&page={c}"
@@ -22,7 +27,7 @@ for c in range(4):
     for c in titulo_workana:
         title_projects = c.find('h1')
         link_project = c.find('h1')
-        print(c.text)'''
+        print(c.text)
 
 with open("auth.txt",'r') as arquivo:
     key = arquivo.read()
@@ -40,4 +45,13 @@ def echoa_all(message):
 
 
 print("Inicializando um bot")
-bot.infinity_polling()
+bot.infinity_polling()''' 
+
+mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
+resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
+soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
+NameProdoct = str(soup.find_all("h3",class_="poly-component__title-wrapper"))
+NameStore = re.findall(r">([^<]+)<",NameProdoct)
+for indice,produto in enumerate(NameStore):
+    if indice % 2 == 0:
+        print(produto)

@@ -17,7 +17,7 @@ BanWords = ['span','tag','style','true']
 def RegularExpression(x:str):
     NameProdocts = re.findall(r">([^<]+)<",x)
     LinkProdocts = re.findall(r'href="([^"]+)"',x)
-    PriceProducts = re.findall(r"\d+",x)
+    PriceProducts = re.findall(r">([^<]+)<",x)
     NameStore = re.findall(r">([^<]+)<",x)
     OriginalPrice = re.findall(r"\d+",x)
 
@@ -28,14 +28,14 @@ def MercadoLivre():
     NameProdoct = str(soup.find_all("h3",class_="poly-component__title-wrapper"))
     NameStore = soup.find_all("span",class_="poly-component__brand")
     Link = str(soup.find("a",class_="poly-component__title"))
-    Price = soup.find_all("div",class_="poly-price__current")
-    OriginalPrice = soup.find_all("s",class_="andes-money-amount andes-money-amount--previous andes-money-amount--cents-comma")
-    itens_grupy = soup.find_all("div",class_="items-with-smart-groups")
+    Price = str(soup.find("span",class_="andes-money-amount__fraction"))
+    OriginalPrice = soup.find_all("s",class_="")
+    itens_grupy = soup.find("div",class_="items-with-smart-groups")
     NameProdocts = re.findall(r">([^<]+)<",NameProdoct)
     LinkProdocts = re.findall(r'href="([^"]+)"',Link)
-    for name in NameProdocts:
-        print(name)
-        time.sleep(2)
+    for name in itens_grupy:
+        pass 
+    print(itens_grupy)
 
 
     
