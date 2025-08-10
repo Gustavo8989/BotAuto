@@ -49,6 +49,8 @@ def Amazon():
     print(NameProdoct)
 
 MercadoLivre()
+
+
 '''
 TIRANDO PRINT EM SELENIUM
 
@@ -57,6 +59,5 @@ driver.get("https://www.google.com")
 logo = driver.find_element("xpath", '//*[@id="hplogo"]')
 logo.screenshot("print_logo.png")
 driver.quit()
-
 
 '''

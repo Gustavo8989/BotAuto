@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
+from selenium import webdriver
 import requests 
 import telebot 
 import time 
 import re 
-
 
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
 
@@ -51,7 +51,22 @@ mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
 resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
 soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
 NameProdoct = str(soup.find_all("h3",class_="poly-component__title-wrapper"))
+Price = str(soup.find_all("span",class_="andes-money-amount andes-money-amount--cents-superscript"))
+Price_ = re.findall(r">([^<]+)<",Price)
 NameStore = re.findall(r">([^<]+)<",NameProdoct)
+
+# Limpando os valores 
 for indice,produto in enumerate(NameStore):
     if indice % 2 == 0:
-        print(produto)
+        pass 
+ClearName = [(indice,produto) for indice,produto in enumerate(NameStore) if indice % 2 == 0]
+
+# Limpando os valores 
+limpos = [r.replace(r",","")for r in Price_]
+lista_valores_limpa = [c for c in limpos if c.strip()]
+
+driver = webdriver.Chrome()
+driver.get("https://www.google.com")
+logo = driver.find_element("xpath", '//*[@id="hplogo"]')
+logo.screenshot("print_logo.png")
+driver.quit()
