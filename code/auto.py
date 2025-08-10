@@ -47,17 +47,7 @@ class auto:
         Link = None
         Price = soup.find_all("span",class_="a-price-whole") 
         itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
-        print(NameProdoct)
+
+
 
 s = auto()
-
-'''
-TIRANDO PRINT EM SELENIUM
-
-driver = webdriver.Chrome()
-driver.get("https://www.google.com")
-logo = driver.find_element("xpath", '//*[@id="hplogo"]')
-logo.screenshot("print_logo.png")
-driver.quit()
-
-'''

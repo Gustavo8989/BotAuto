@@ -5,15 +5,21 @@ from sklearn.pipeline import Pipeline
 from sklearn import svm
 from auto import auto
 import cv2 
-import spacy 
+#import spacy 
 
 
+options = webdriver.FirefoxOptions()
+driver = webdriver.Firefox(options=options)
+driver.get("https://www.google.com") #Url mecado livre 
 
+logo = driver.find_element("xpath", '//*[@id="hplogo"]')
+logo.screenshot("print_logo.png")
+driver.quit()
 
 
 
 
 
 teste = auto
-Name = teste.MercadoLivre()
+Name,Link = teste.MercadoLivre()
 print(Name)
