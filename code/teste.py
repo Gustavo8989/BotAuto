@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import cv2 
 import requests 
 import telebot 
 import time 

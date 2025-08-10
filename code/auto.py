@@ -14,42 +14,42 @@ mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
 amazon = "https://www.amazon.com.br/deals?ref_=nav_cs_gb"
 BanWords = ['span','tag','style','true']
 # Expressão Regular
-def RegularExpression(x:str):
-    NameProdocts = re.findall(r">([^<]+)<",x)
-    LinkProdocts = re.findall(r'href="([^"]+)"',x)
-    PriceProducts = re.findall(r">([^<]+)<",x)
-    NameStore = re.findall(r">([^<]+)<",x)
-    OriginalPrice = re.findall(r"\d+",x)
+class auto:
+    def RegularExpression(x:str):
+        NameProdocts = re.findall(r">([^<]+)<",x)
+        LinkProdocts = re.findall(r'href="([^"]+)"',x)
+        PriceProducts = re.findall(r">([^<]+)<",x)
+        NameStore = re.findall(r">([^<]+)<",x)
 
 
-def MercadoLivre():
-    resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
-    soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
-    NameProdoct = str(soup.find_all("h3",class_="poly-component__title-wrapper"))
-    NameStore = soup.find_all("span",class_="poly-component__brand")
-    Link = str(soup.find("a",class_="poly-component__title"))
-    Price = str(soup.find("span",class_="andes-money-amount__fraction"))
-    OriginalPrice = soup.find_all("s",class_="")
-    itens_grupy = soup.find("div",class_="items-with-smart-groups")
-    NameProdocts = re.findall(r">([^<]+)<",NameProdoct)
-    LinkProdocts = re.findall(r'href="([^"]+)"',Link)
-    for name in itens_grupy:
-        pass 
-    print(itens_grupy)
+    def MercadoLivre():
+        resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
+        soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
+        NameProdoct = str(soup.find_all("h3",class_="poly-component__title-wrapper"))
+        NameStore = soup.find_all("span",class_="poly-component__brand")
+        Link = str(soup.find("a",class_="poly-component__title"))
+        Price = str(soup.find("span",class_="andes-money-amount__fraction"))
+        
+        NameProdocts = re.findall(r">([^<]+)<",NameProdoct)
+        LinkProdocts = re.findall(r'href="([^"]+)"',Link)
+        CliearNameProdocts = [(indice,produto) for indice,produto in enumerate(NameProdocts) if indice % 2 == 0]
+        for indice,produto in enumerate(NameProdocts):
+            if indice % 2 == 0:
+                #time.sleep(5)
+                #print(produto)
+                pass 
+        return CliearNameProdocts,Link 
 
+    def Amazon():
+        responsta_amazon = requests.get(amazon,headers=headers)
+        soup = BeautifulSoup(responsta_amazon.content,'html.parser')
+        NameProdoct = soup.find_all('span',class_="a-truncate-cut")
+        Link = None
+        Price = soup.find_all("span",class_="a-price-whole") 
+        itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
+        print(NameProdoct)
 
-    
-def Amazon():
-    responsta_amazon = requests.get(amazon,headers=headers)
-    soup = BeautifulSoup(responsta_amazon.content,'html.parser')
-    NameProdoct = soup.find_all('span',class_="a-truncate-cut")
-    Link = None
-    Price = soup.find_all("span",class_="a-price-whole") 
-    itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
-    print(NameProdoct)
-
-MercadoLivre()
-
+s = auto()
 
 '''
 TIRANDO PRINT EM SELENIUM
