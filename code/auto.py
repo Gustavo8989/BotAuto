@@ -47,6 +47,16 @@ class auto:
         Link = None
         Price = soup.find_all("span",class_="a-price-whole") 
         itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
+    
+    def Img_database():
+        options = webdriver.FirefoxOptions()
+        driver = webdriver.Firefox(options=options)
+        driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
+        # Pegando os elementos
+        ImgElement = driver.find_element("xpath", '//*[@id=":R21j7:"]')
+        ImgElement.screenshot("teste.png")
+        driver.quit()
+
 
 
 
