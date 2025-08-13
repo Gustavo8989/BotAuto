@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import telebot  
 import time
 import requests 
+import cv2
 import re 
 
 # FAZE DE TESTE
@@ -56,8 +57,8 @@ class auto:
         ImgElement = driver.find_element("xpath", '//*[@id=":R21j7:"]')
         ImgElement.screenshot("teste.png")
         driver.quit()
-
-
+        imagem_path = "teste.png"
+        imagem = cv2.imread(imagem_path)
 
 
 s = auto()
