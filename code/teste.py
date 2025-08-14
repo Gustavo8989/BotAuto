@@ -46,7 +46,7 @@ def echoa_all(message):
 
 
 print("Inicializando um bot")
-bot.infinity_polling()''' 
+bot.infinity_polling()
 
 mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
 resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
@@ -71,3 +71,8 @@ driver.get("https://www.google.com")
 logo = driver.find_element("xpath", '//*[@id="hplogo"]')
 logo.screenshot("print_logo.png")
 driver.quit()
+'''
+mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
+resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
+soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
+group_id = str(soup.find_all('div',class_="andes-card poly-card poly-card--grid-card poly-card--large andes-card--flat andes-card--padding-0 andes-card--animated"))

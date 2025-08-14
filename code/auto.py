@@ -16,32 +16,27 @@ amazon = "https://www.amazon.com.br/deals?ref_=nav_cs_gb"
 BanWords = ['span','tag','style','true']
 # Expressão Regular
 class auto:
-    def RegularExpression(x:str):
+    def RegularExpression(self,x:str):
         NameProdocts = re.findall(r">([^<]+)<",x)
         LinkProdocts = re.findall(r'href="([^"]+)"',x)
         PriceProducts = re.findall(r">([^<]+)<",x)
         NameStore = re.findall(r">([^<]+)<",x)
 
 
-    def MercadoLivre():
+    def MercadoLivre(self):
         resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
         soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
         NameProdoct = str(soup.find_all("h3",class_="poly-component__title-wrapper"))
         NameStore = soup.find_all("span",class_="poly-component__brand")
         Link = str(soup.find("a",class_="poly-component__title"))
         Price = str(soup.find("span",class_="andes-money-amount__fraction"))
-        
+        group_id = str(soup.find('div',class_="andes-card poly-card poly-card--grid-card poly-card--large andes-card--flat andes-card--padding-0 andes-card--animated"))
         NameProdocts = re.findall(r">([^<]+)<",NameProdoct)
         LinkProdocts = re.findall(r'href="([^"]+)"',Link)
-        CliearNameProdocts = [(indice,produto) for indice,produto in enumerate(NameProdocts) if indice % 2 == 0]
-        for indice,produto in enumerate(NameProdocts):
-            if indice % 2 == 0:
-                #time.sleep(5)
-                #print(produto)
-                pass 
-        return CliearNameProdocts,Link 
+        self.CliearNameProdocts = [(indice,produto) for indice,produto in enumerate(NameProdocts) if indice % 2 == 0]
+        return self.CliearNameProdocts,Link 
 
-    def Amazon():
+    def Amazon(self):
         responsta_amazon = requests.get(amazon,headers=headers)
         soup = BeautifulSoup(responsta_amazon.content,'html.parser')
         NameProdoct = soup.find_all('span',class_="a-truncate-cut")
@@ -49,16 +44,16 @@ class auto:
         Price = soup.find_all("span",class_="a-price-whole") 
         itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
     
-    def Img_database():
-        options = webdriver.FirefoxOptions()
-        driver = webdriver.Firefox(options=options)
-        driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
-        # Pegando os elementos
-        ImgElement = driver.find_element("xpath", '//*[@id=":R21j7:"]')
-        ImgElement.screenshot("teste.png")
-        driver.quit()
+    def Img_database(self):
+        for c in len(self.CliearNameProdocts):
+            options = webdriver.FirefoxOptions()
+            driver = webdriver.Firefox(options=options)
+            driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
+            # Pegando os elementos
+            ImgElement = driver.find_element("xpath", '//*[@id=":R21j7:"]')
+            ImgElement.screenshot("teste.png")
+            driver.quit()
         imagem_path = "teste.png"
         imagem = cv2.imread(imagem_path)
-
 
 s = auto()
