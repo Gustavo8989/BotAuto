@@ -76,3 +76,9 @@ mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
 resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
 soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
 group_id = str(soup.find_all('div',class_="andes-card poly-card poly-card--grid-card poly-card--large andes-card--flat andes-card--padding-0 andes-card--animated"))
+teste_category = str(soup.find_all('span',class_="list-filter__list-element"))
+print(teste_category)
+
+#https://www.mercadolivre.com.br/ofertas?category=MLB5672#filter_applied=category&filter_position=3&origin=qcat
+#https://www.mercadolivre.com.br/ofertas?category=MLB271599#filter_applied=category&filter_position=3&origin=qcat
+#https://www.mercadolivre.com.br/ofertas?category=MLB456927#filter_applied=category&filter_position=3&origin=qcat   
