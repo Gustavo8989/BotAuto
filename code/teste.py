@@ -3,6 +3,7 @@ from selenium import webdriver
 import cv2 
 import requests 
 import telebot 
+import boto3
 import time 
 import re 
 
@@ -72,13 +73,19 @@ logo = driver.find_element("xpath", '//*[@id="hplogo"]')
 logo.screenshot("print_logo.png")
 driver.quit()
 '''
-mercado_livre = "https://www.mercadolivre.com.br/ofertas#nav-header"
-resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
-soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
-group_id = str(soup.find_all('div',class_="andes-card poly-card poly-card--grid-card poly-card--large andes-card--flat andes-card--padding-0 andes-card--animated"))
-teste_category = str(soup.find_all('span',class_="list-filter__list-element"))
-print(teste_category)
+
+# Links para as promoções por categoria 
 
 #https://www.mercadolivre.com.br/ofertas?category=MLB5672#filter_applied=category&filter_position=3&origin=qcat
 #https://www.mercadolivre.com.br/ofertas?category=MLB271599#filter_applied=category&filter_position=3&origin=qcat
 #https://www.mercadolivre.com.br/ofertas?category=MLB456927#filter_applied=category&filter_position=3&origin=qcat   
+
+driver = webdriver.FirefoxOptions()
+drive = webdriver.Firefox(options=driver)
+drive.get("https://www.mercadolivre.com.br/ofertas#nav-header")
+ImgElement = drive.find_element("xpath", '//*[@id=":R21j7:"]')
+ImgElement.screenshot("teste.png")
+drive.quit()
+
+s3_client = boto3.client('s3',region_name='Brazil')
+ 
