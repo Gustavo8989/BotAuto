@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from auto import auto 
 import cv2 
 import requests 
@@ -92,10 +93,26 @@ ImgElement = drive.find_element("xpath", '//*[@id=":R21j7:"]')
 ImgElement.screenshot("teste.png")
 drive.quit()
 '''
+
 # Vendo meus 'pasta' na AWS
 
+name_img = ""
+for c in range(1,4):
+    options = webdriver.FirefoxOptions()
+    driver = webdriver.Firefox(options=options)
+    driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
+            # Pegando os elementos
+    id = f":R2{c}j7:"
+    xpath = f'//*[@id="{id}"]'
+    name_img = f'img{c}.png'
+    ImgElement = driver.find_element(By.XPATH, xpath)
+    ImgElement.screenshot(name_img)
+    driver.quit()
+
+
+
 BUCKET_NAME = "fileimgbot"
-FILE_PATH = "teste1.png"
+FILE_PATH = name_img
 S3_OBJECT_NAME = "nome_teste1.png"
 
 s3 = boto3.client('s3')
@@ -110,13 +127,4 @@ except Exception as e:
     print("Ocorreu um erro {e}")
 
 
-for c in range(1,4):
-    options = webdriver.FirefoxOptions()
-    driver = webdriver.Firefox(options=options)
-    driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
-            # Pegando os elementos
-    id = f":R2{c}j7:"
-    xpath = f'//*[@id="{id}"]'
-    ImgElement = driver.find_element(By.XPATH, xpath)
-    ImgElement.screenshot(f"teste{c}.png")
-    driver.quit()
+path = s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
