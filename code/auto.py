@@ -1,6 +1,7 @@
 # Webscraping (sites) 
 from selenium import webdriver
 from bs4 import BeautifulSoup 
+from selenium.webdriver.common.by import By
 import telebot  
 import time
 import requests 
@@ -46,13 +47,15 @@ class auto:
         itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
     
     def Img_database(self):
-        for c in len(self.CliearNameProdocts):
+        for c in len(1,self.CliearNameProdocts):
             options = webdriver.FirefoxOptions()
             driver = webdriver.Firefox(options=options)
             driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
             # Pegando os elementos
-            ImgElement = driver.find_element("xpath", '//*[@id=":R21j7:"]')
-            ImgElement.screenshot("teste.png")
+            id = f":R2{c}j7:"
+            xpath = f'//*[@id={id}]'
+            ImgElement = driver.find_element(By.XPATH, xpath)
+            ImgElement.screenshot(f"teste{c}.png")
             driver.quit()
         imagem_path = "teste.png"
         imagem = cv2.imread(imagem_path)

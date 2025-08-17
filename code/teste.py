@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from auto import auto 
 import cv2 
 import requests 
 import telebot 
@@ -9,6 +11,9 @@ import re
 
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'}
 
+Auto = auto()
+Name,link = Auto.MercadoLivre()
+Name = str(Name)
 
 # URLs
 '''
@@ -72,7 +77,7 @@ driver.get("https://www.google.com")
 logo = driver.find_element("xpath", '//*[@id="hplogo"]')
 logo.screenshot("print_logo.png")
 driver.quit()
-'''
+
 
 # Links para as promoções por categoria 
 
@@ -86,6 +91,32 @@ drive.get("https://www.mercadolivre.com.br/ofertas#nav-header")
 ImgElement = drive.find_element("xpath", '//*[@id=":R21j7:"]')
 ImgElement.screenshot("teste.png")
 drive.quit()
+'''
+# Vendo meus 'pasta' na AWS
 
-s3_client = boto3.client('s3',region_name='Brazil')
- 
+BUCKET_NAME = "fileimgbot"
+FILE_PATH = "teste1.png"
+S3_OBJECT_NAME = "nome_teste1.png"
+
+s3 = boto3.client('s3')
+try:
+    reponse = s3.list_buckets()
+    s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
+    print(f"Arquivo {FILE_PATH} enviado com sucesso para {BUCKET_NAME}/{S3_OBJECT_NAME}")
+    print("Buckets existentes: ")
+    for bucket in reponse['Buckets']:
+        print(f'{bucket["Name"]}')
+except Exception as e:
+    print("Ocorreu um erro {e}")
+
+
+for c in range(1,4):
+    options = webdriver.FirefoxOptions()
+    driver = webdriver.Firefox(options=options)
+    driver.get("https://www.mercadolivre.com.br/ofertas#nav-header") #Url mecado livre 
+            # Pegando os elementos
+    id = f":R2{c}j7:"
+    xpath = f'//*[@id="{id}"]'
+    ImgElement = driver.find_element(By.XPATH, xpath)
+    ImgElement.screenshot(f"teste{c}.png")
+    driver.quit()
