@@ -23,7 +23,7 @@ class auto:
         LinkProdocts = re.findall(r'href="([^"]+)"',x)
         PriceProducts = re.findall(r">([^<]+)<",x)
         NameStore = re.findall(r">([^<]+)<",x)
-        
+
     def MercadoLivre(self):
         resposta_mercadolivre = requests.get(mercado_livre,headers=headers)
         soup = BeautifulSoup(resposta_mercadolivre.content,'html.parser')
@@ -45,7 +45,7 @@ class auto:
         Price = soup.find_all("span",class_="a-price-whole") 
         itens_groupy = soup.find_all("div",class_="GridItem-module__container_PW2gdkwTj1GQzdwJjejN")
     
-    def Img_database(self):
+    def save_img(self):
         name_img = ""
         for c in len(1,self.CliearNameProdocts):
             options = webdriver.FirefoxOptions()
@@ -58,21 +58,19 @@ class auto:
             ImgElement = driver.find_element(By.XPATH, xpath)
             ImgElement.screenshot(name_img)
             driver.quit()
-            return name_img
-    def salvar_drive(self):
-        BUCKET_NAME = "fileimgbot"
-        FILE_PATH = self.name_img
-        S3_OBJECT_NAME = "nome_teste1.png"
-        s3 = boto3.client('s3')
-        try:
-            reponse = s3.list_buckets()
-            s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
-            print(f"Arquivo {FILE_PATH} enviado com sucesso para {BUCKET_NAME}/{S3_OBJECT_NAME}")
-            print("Buckets existentes: ")
-            for bucket in reponse['Buckets']:
-                print(f'{bucket["Name"]}')
-        except Exception as e:
-            print("Ocorreu um erro {e}")
-        path = s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
+            BUCKET_NAME = "fileimgbot"
+            FILE_PATH = name_img
+            S3_OBJECT_NAME = "nome_teste1.png"
+            s3 = boto3.client('s3')
+            try:
+                reponse = s3.list_buckets()
+                s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
+                print(f"Arquivo {FILE_PATH} enviado com sucesso para {BUCKET_NAME}/{S3_OBJECT_NAME}")
+                print("Buckets existentes: ")
+                for bucket in reponse['Buckets']:
+                    print(f'{bucket["Name"]}')
+            except Exception as e:
+                print("Ocorreu um erro {e}")
+            path = s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
 
 s = auto()

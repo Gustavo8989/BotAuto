@@ -108,23 +108,17 @@ for c in range(1,4):
     ImgElement = driver.find_element(By.XPATH, xpath)
     ImgElement.screenshot(name_img)
     driver.quit()
-
-
-
-BUCKET_NAME = "fileimgbot"
-FILE_PATH = name_img
-S3_OBJECT_NAME = "nome_teste1.png"
-
-s3 = boto3.client('s3')
-try:
-    reponse = s3.list_buckets()
-    s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
-    print(f"Arquivo {FILE_PATH} enviado com sucesso para {BUCKET_NAME}/{S3_OBJECT_NAME}")
-    print("Buckets existentes: ")
-    for bucket in reponse['Buckets']:
-        print(f'{bucket["Name"]}')
-except Exception as e:
-    print("Ocorreu um erro {e}")
-
-
-path = s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
+    BUCKET_NAME = "fileimgbot"
+    FILE_PATH = name_img
+    S3_OBJECT_NAME = name_img
+    s3 = boto3.client('s3')
+    try:
+        reponse = s3.list_buckets()
+        s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
+        print(f"Arquivo {FILE_PATH} enviado com sucesso para {BUCKET_NAME}/{S3_OBJECT_NAME}")
+        print("Buckets existentes: ")
+        for bucket in reponse['Buckets']:
+            print(f'{bucket["Name"]}')
+    except Exception as e:
+        print("Ocorreu um erro {e}")
+    path = s3.upload_file(FILE_PATH,BUCKET_NAME,S3_OBJECT_NAME)
