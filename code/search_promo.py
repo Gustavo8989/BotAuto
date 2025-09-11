@@ -12,7 +12,7 @@ list_components = {"Placa de mãe":"Asus TUF GAMING B550M-Plus",
                    "Processador":"AMD Ryzen 5 4500",
                    "Plava de video":"XFX Radeon RX 6600",
                    "Ram":"Kingston Fury Beast 16GB (2x8GB) DDR4 3200MHz",
-                   "SSD":"Kingston NV3 500GB M.2 NVMe Gen4",
+                   "SSD":"Kingston NV3 1TB M.2 NVMe Gen4",
                    "Fonte":"Corsair CX550 550W 80 Plus Bronze",
 }
 
@@ -30,8 +30,7 @@ for c in list_components:
 # Pesquisando no google:
 option = webdriver.FirefoxOptions()
 driver = webdriver.Firefox(options=option)
-driver.get("")
-
-
-
+driver.get("https://www.google.com/?zx=1757252597559&no_sw_cr=1")
+search = driver.find_element(By.ID,"APjFqb")
+search.send_keys()
 

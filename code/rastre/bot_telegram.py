@@ -14,6 +14,6 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def send_hello(message):
-    bot.reply_to(message,"[1] 99 freelas ou [2] Workana")
+    bot.reply_to(message,"")
 
 bot.infinity_polling()
