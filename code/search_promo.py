@@ -1,3 +1,4 @@
+from os import name
 from requests.api import options
 from selenium.webdriver.common.by import By
 from selenium import webdriver
@@ -5,6 +6,8 @@ from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import requests 
 import telebot 
+import time
+from serpapi import GoogleSearch
 
 # A Build dois esta com as melhores peças custo beneficios
 
@@ -34,13 +37,17 @@ pc_two =[
     "Gabinete Gamer com pelo menos uma ventoinha inclusa"
 ]
 
-
-component = []
+nome_junto = ""
 
 for index,nome in enumerate(pc_two):
-    option = webdriver.FirefoxOptions()
-    driver = webdriver.Firefox(options=option)
-    driver.get("")
-    search = driver.find_element(By.ID,"APjFqb")
-    search.send_keys(nome + " Promoção" + Keys.ENTER)
+    nome_junto = nome.split()
+    nome_junto_text = "".join(nome_junto)
+
+
+'''
+Não tem como fazer webscraping no site principal do Google 
+Tem duas opção 
+1-) Pegar os maiores site de vende de peças para computador e fazer por lá 
+2-) Utilizar a serpapi
+'''
 
