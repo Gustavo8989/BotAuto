@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import requests 
 import telebot 
 import time
-from serpapi import GoogleSearch
+
 
 # A Build dois esta com as melhores peças custo beneficios
 
@@ -37,7 +37,8 @@ pc_two =[
     "Gabinete Gamer com pelo menos uma ventoinha inclusa"
 ]
 
-ali = ""
+ali = "https://pt.aliexpress.com/?src=google&albch=fbrnd&acnt=907-325-7776&isdl=y&aff_short_key=UneMJZVf&albcp=22465909199&albag=178972697235&slnk=&trgt=kwd-14802285088&plac=&crea=737535531803&netw=g&device=c&mtctp=e&memo1=&albbt=Google_7_fbrnd&aff_platform=google&albagn=888888&isSmbActive=false&isSmbAutoCall=false&needSmbHouyi=false&gad_campaignid=22465909199&gatewayAdapt=glo2bra"
+
 mercado_livre = "" 
 Amazon = ""
 Kabum = ""
@@ -52,5 +53,12 @@ def gerador_url():
         nome_junto = nome.split()
         nome_junto_text = "".join(nome_junto)
 
-
-        
+option = webdriver.FirefoxOptions()
+driver = webdriver.Firefox(options=option)
+driver.get(ali)
+pesquisa = driver. find_element(By.ID,"search-words")
+pesquisa.send_keys("Teclado barato")
+pesquisa.send_keys(Keys.ENTER)
+time.sleep(2)
+url_atual = driver.current_url
+print(url_atual)
