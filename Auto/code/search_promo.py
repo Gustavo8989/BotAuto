@@ -37,17 +37,20 @@ pc_two =[
     "Gabinete Gamer com pelo menos uma ventoinha inclusa"
 ]
 
-nome_junto = ""
+ali = ""
+mercado_livre = "" 
+Amazon = ""
+Kabum = ""
+Terabyte = ""
+Pichau = ""
 
-for index,nome in enumerate(pc_two):
-    nome_junto = nome.split()
-    nome_junto_text = "".join(nome_junto)
+# https://pt.aliexpress.com/w/wholesale-AMD-Ryzen-5-5500-(6-n%C3%BAcleos%2C-12-threads%2C-3.6-GHz-b.html?spm=a2g0o.home.search.0
+
+def gerador_url():
+    nome_junto = ""
+    for index,nome in enumerate(pc_two):
+        nome_junto = nome.split()
+        nome_junto_text = "".join(nome_junto)
 
 
-'''
-Não tem como fazer webscraping no site principal do Google 
-Tem duas opção 
-1-) Pegar os maiores site de vende de peças para computador e fazer por lá 
-2-) Utilizar a serpapi
-'''
-
+        
